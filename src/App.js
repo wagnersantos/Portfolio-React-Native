@@ -10,7 +10,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import api from "./services/api";
+
 export default function App() {
+  const [repositories, setReposiories] = React.useState([]);
+
+  React.useEffect(() => {
+    (async () => {
+      const { data } = await api.get("/repositories");
+      setReposiories(data);
+    })();
+  }, []);
+
   async function handleLikeRepository(id) {
     // Implement "Like Repository" functionality
   }
@@ -23,12 +34,8 @@ export default function App() {
           <Text style={styles.repository}>Repository 1</Text>
 
           <View style={styles.techsContainer}>
-            <Text style={styles.tech}>
-              ReactJS
-            </Text>
-            <Text style={styles.tech}>
-              Node.js
-            </Text>
+            <Text style={styles.tech}>ReactJS</Text>
+            <Text style={styles.tech}>Node.js</Text>
           </View>
 
           <View style={styles.likesContainer}>
